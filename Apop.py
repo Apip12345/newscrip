@@ -1,34 +1,97 @@
-#Update 14/10/2020 (18:36)
-#Recode Mulu asu tinggal pake apa susahnya:v
-import os,sys,time,requests,json,re
-from bs4 import BeautifulSoup as parser
-from time import sleep
-from concurrent.futures import ThreadPoolExecutor
-from colorama import init, Fore, Back
-B = Fore.BLUE
-W = Fore.WHITE
-C = Fore.CYAN
-R = Fore.RED
-G = Fore.GREEN
-Y = Fore.YELLOW
-id=[]
-count=0
-result=0
-chek=0
-die=0
-check=[]
-vuln=[]
-mbasic="https://mbasic.facebook.com{}"
-def clear():
-    os.system('clear')
-def baner():    
-    print(f'''
-{B}╔═╗{W}┌─┐┌─┐┌─┐┌┐ ┌─┐┌─┐┬┌─   {B}╔╦╗{W}┌┐ ┌─┐
-{B}╠╣ {W}├─┤│  ├┤ ├┴┐│ ││ │├┴┐{R}───{B}║║║{W}├┴┐├┤ 
-{B}╚  {W}┴ ┴└─┘└─┘└─┘└─┘└─┘┴ ┴   {B}╩ ╩{W}└─┘└  ''')
-    print('' + Back.BLUE + Fore.BLACK + '        Creator : ApipUdin         \033[00m')
-    print()
+#!/usr/bin/python2
+# coding=utf-8
 
+#Import module
+import os,sys,time,datetime,random,hashlib,re,threading,json,getpass,urllib,cookielib
+from multiprocessing.pool import ThreadPool
+from datetime import datetime
+try:
+	import mechanize
+except ImportError:
+	os.system("pip2 install mechanize")
+try:
+	import bs4
+except ImportError:
+	os.system("pip2 install bs4")
+try:
+	import requests
+except ImportError:
+	os.system("pip2 install requests")
+	os.system("python2 UNIS3X.py")
+from requests.exceptions import ConnectionError
+from mechanize import Browser 
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+br = mechanize.Browser()
+br.set_handle_robots(False)
+br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(),max_time=1)
+br.addheaders = [('User-Agent', 'Opera/9.80 (Android; Opera Mini/32.0.2254/85. U; id) Presto/2.12.423 Version/12.16')]
+
+
+def keluar():
+	print "[!] Exit"
+	os.sys.exit()
+	
+	
+def acak(x):
+    w = 'mhkbpcP'
+    d = ''
+    for i in x:
+        d += '!'+w[random.randint(0,len(w)-1)]+i
+    return cetak(d)
+    
+    
+def cetak(x):
+    w = 'mhkbpcP'
+    for i in w:
+        j = w.index(i)
+        x= x.replace('!%s'%i,'%s;'%str(31+j))
+    x += ''
+    x = x.replace('!0','')
+    sys.stdout.write(x+'\n')
+
+
+def jalan(z):
+	for e in z + '\n':
+		sys.stdout.write(e)
+		sys.stdout.flush()
+		time.sleep(0.06)
+		
+#########LOGO#########
+logo = """
+\033[1;97m ╔═════════════════════════════════════╗
+\033[1;97m ║   \033[1;97m_   _ _   _ ___ ____ _______  __  \033[1;97m║  
+\033[1;97m ║  \033[1;97m| | | | \ | |_ _/ ___|___ /\ \/ /  \033[1;97m║
+\033[1;97m ║  \033[1;97m| | | |  \| || |\___ \ |_ \ \  /   \033[1;97m║
+\033[1;97m ║  \033[1;97m| |_| | |\  || | ___) |__) |/  \   \033[1;97m║
+\033[1;97m ║   \033[1;97m\___/|_| \_|___|____/____//_/\_\  \033[1;97m║
+\033[1;97m ║                                     ║
+\033[1;97m ╚═════════════════════════════════════╝
+\033[1;97m ╔═════════════════════════════════════╗
+\033[1;97m ║ Author : Virgiirhsy                 ║
+\033[1;97m ║ Github : https://github.com/vrhasya ║
+\033[1;97m ╚═════════════════════════════════════╝ """
+
+def tik():
+	titik = ['.   ','..  ','... ']
+	for o in titik:
+		print("\r\033[1;97m[\033[1;93m●\033[1;97m]\033[1;93m Sedang Masuk\033[1;97m "+o),;sys.stdout.flush();time.sleep(1)
+
+
+back = 0
+threads = []
+berhasil = []
+cekpoint = []
+oks = []
+oke = []
+cpe = []
+id = []
+username = []
+idteman = []
+idfromteman = []
+
+######MASUK######
 def masuk():
 	os.system('clear')
 	print logo
@@ -65,7 +128,7 @@ def tokenz():
 		zedd.close()
 		jalan ('\033[1;97m Jangan Lupa Follow Akun Pribadi Saya :)')
 		jalan ('\033[1;97m[\033[1;91m•\033[1;97m•\033[1;97m]\033[1;92m Login Berhasil')
-		os.system('xdg-open https://www.facebook.com/profile.php?id=100040760688546')
+		os.system('xdg-open https://m.facebook.com/cindy.adelia.330')
 		menu()
 	except KeyError:
 		print "\033[1;97m[\033[1;93m!\033[1;97m] \033[1;93mToken Salah !"
@@ -131,8 +194,9 @@ def pilih():
 		keluar()
 	else:
 		print"\033[1;97m[\033[1;91m!\033[1;97m]\033[1;97m Isi Yg Benar !"
-        time.sleep(1)
-        os.system('python fb.py')
+		pilih()
+	
+########## CRACK INDONESIA #######
 def nid():
     r=ses.get(mbasic.format('/me'),cookies=kukis).text
     name=re.findall(r'<title>(.*?)</title>',r)[0]
